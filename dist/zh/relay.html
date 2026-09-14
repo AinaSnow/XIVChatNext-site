@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>可选自建中继 · XIVChat Next</title><meta name="description" content="可选自建中继 — XIVChat Next"><link rel="icon" href="../assets/logo.png"><link rel="stylesheet" href="../style.css"></head><body><a class="skip" href="#main">跳到正文</a><header class="site-header wrap"><a class="brand" href="index.html"><img src="../assets/logo.png" width="42" height="42" alt=""><span>XIVChat <b>Next</b></span></a><nav aria-label="导航"><a class="language-switch" href="../relay.html">English</a><a class="nav-cta" href="index.html">返回介绍页 ↗</a></nav></header><main class="guide-body wrap" id="main"><p class="eyebrow">XIVCHAT NEXT · DESKTOP 1.3.6 / PLUGIN 1.7.15</p><h1>可选自建中继</h1><p>游戏插件和桌面端都主动连接你的 HTTPS 中继，适合无法直连游戏电脑的环境。中继只转发应用数据，不代理游戏、不保持角色在线、不保存离线聊天或截图。</p>
+<h3>部署</h3>
+<p>发布包中的预编译 Linux amd64 镜像见 <a href="https://github.com/AinaSnow/XIVChatNext/blob/main/docs/user/RELAY_VPS_OFFLINE_IMAGE.md#简体中文">1Panel 离线部署</a>，源码与反代配置见 <a href="https://github.com/AinaSnow/XIVChatNext/blob/main/docs/user/RELAY_VPS_HTTPS.md#简体中文">VPS HTTPS</a>。</p>
+<p>没有现有反代的服务器可用 <code>deploy/relay/compose.yaml</code>，自带 Caddy。复制 <code>.env.example</code> 为 <code>.env</code>，填写真实 <code>RELAY_DOMAIN</code> 和至少 16 字符的独立 <code>RELAY_ADMIN_PASSWORD</code>，运行 <code>docker compose up -d --build</code>。Caddy 使用 80/443，无需公网开放 14777、8080；不要与 1Panel 配置合并。</p>
+<p>打开 <code>https://你的域名/admin/</code> 登录。两端服务地址填写 HTTPS 根地址，不带子路径、查询或用户名密码；仅本机开发允许回环 HTTP。</p>
+<h3>注册与配对</h3>
+<ol>
+<li>后台“游戏设备”添加设备，保存只显示一次的注册凭据。</li>
+<li>插件填写服务地址与凭据，保存并启用中继，等待在线。</li>
+<li>后台或插件生成邀请，新邀请会使上一份未使用邀请失效。</li>
+<li>客户端选择自建中继、粘贴邀请，与插件通过独立可信方式核对完整指纹并保存。</li>
+<li>在两端完成首次聊天设备信任。</li>
+</ol>
+<p>管理密码、游戏注册凭据、邀请和客户端凭据各有用途，不能混用。每个客户端有独立凭据，由当前 Windows 用户保护；换电脑/用户或丢失配置可能需要重新配对。</p>
+<p><strong>正常重启不需要重新邀请。</strong> 十分钟只限制邀请的首次兑换，已保存凭据和信任持续有效，直到被撤销。保存失败、凭据丢失/撤销或端点证书更换等情况才需要重新配对。Logo 连接最近成功目标；成功中继会话意外中断后退避重试，主动断开可取消。</p>
+<h3>后台与运行</h3>
+<p>中英文后台可查看设备、客户端和会话，重命名、生成邀请、撤销单客户端或整个游戏设备，不能再次显示原始凭据。撤销通常在两秒检查周期内关闭受影响连接，且不可恢复。</p>
+<p>后台会话最多八小时，退出或服务重启失效，但设备授权保留。改密码需更新环境并重新创建容器；Compose 重建时需再次提供域名和自行保存的密码。</p>
+<p>默认面向小规模私有部署：64 个在线游戏端、每端 32 个客户端/会话、全实例 256 会话，每会话每方向 4 MiB/s、突发 8 MiB。截图与聊天共用会话；共享反代下部分请求限制按实例共享。</p>
+<h3>备份、升级与排查</h3>
+<p>保留数据卷和旧镜像，停止中继写入后再复制 SQLite；不要只复制正在写入的主库而漏掉 WAL。上方命令给出了 Compose 备份示例。升级保留配置与数据卷，数据库结构变化时回退需匹配升级前快照，常规升级不要删除卷。</p>
+<p>地址错误检查 HTTPS 域名与原始 Host；登录失败检查密码和频率；设备离线检查 HTTPS、凭据与证书；401 表示凭据无效或撤销；邀请失败检查过期、使用、替换或数量限制；已连接不能发送检查角色和两端信任。指纹不符时停止并独立核对，不要绕过。</p>
+<p>中继可见地址、时间、设备标识和流量大小。应用数据另经端点 TLS 与原聊天加密，中继不持有端点私钥、不持久保存应用流量。</p><p><a href="index.html">← 返回介绍页</a></p></main><footer class="site-footer wrap"><span>XIVChat Next</span><a href="https://github.com/AinaSnow/XIVChatNext">GitHub</a></footer></body></html>

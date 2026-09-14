@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>客户端使用指南 · XIVChat Next</title><meta name="description" content="客户端使用指南 — XIVChat Next"><link rel="icon" href="../assets/logo.png"><link rel="stylesheet" href="../style.css"></head><body><a class="skip" href="#main">跳到正文</a><header class="site-header wrap"><a class="brand" href="index.html"><img src="../assets/logo.png" width="42" height="42" alt=""><span>XIVChat <b>Next</b></span></a><nav aria-label="导航"><a class="language-switch" href="../guide.html">English</a><a class="nav-cta" href="index.html">返回介绍页 ↗</a></nav></header><main class="guide-body wrap" id="main"><p class="eyebrow">XIVCHAT NEXT · DESKTOP 1.3.6 / PLUGIN 1.7.15</p><h1>客户端使用指南</h1><h3>安装</h3>
+<p>从 <a href="https://github.com/AinaSnow/XIVChatNext/releases/latest">Releases</a> 下载 Windows x64 ZIP，解压到独立目录后运行 <code>XIVChat Desktop.exe</code>，保留所有 DLL/资源文件夹。随包包含 .NET 与 Windows App SDK，网页卡片还需 Microsoft Edge WebView2 Runtime。</p>
+<p>在 Dalamud 自定义插件仓库添加 <code>https://raw.githubusercontent.com/AinaSnow/FFXIV-Dalamud-Plugins/main/pluginmaster.json</code>，安装 <strong>XIVChatNext Server</strong> 并登录角色。请使用同次发布的两端版本。</p>
+<h3>连接</h3>
+<p>首次引导设置语言、连接与通知，可在设置中重开。客户端支持英文、简体中文及跟随系统；插件新配置默认英文，可独立设置语言。</p>
+<p>同机默认 <strong>127.0.0.1:14777</strong>，以插件设置为准；局域网使用游戏电脑地址。端口一致，核对指纹并在两端确认信任。</p>
+<p>无法直连时，选择“自建中继”，粘贴有效邀请，与插件独立核对端点指纹后保存，再完成聊天设备信任。正常重启保留配对，授权丢失、撤销或身份变化等情况才需重新配对。详见 <a href="relay.html">中继指南</a>。</p>
+<p>点击 Logo 连接最近成功目标，中继成功会话异常中断后自动重试，主动断开可取消。重新打开客户端不会自动发消息或代替游戏登录。</p>
+<h3>日常操作</h3>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会话</td>
+<td>打开悄悄话、置顶、查看未读；发送前确认固定收件人。</td>
+</tr>
+<tr>
+<td>频道</td>
+<td>选择发送频道，调整视图和过滤器。</td>
+</tr>
+<tr>
+<td>好友</td>
+<td>从同步列表进入会话；未知、过期不能当作离线。</td>
+</tr>
+<tr>
+<td>历史</td>
+<td>选择角色/来源、搜索、离线查看消息。</td>
+</tr>
+<tr>
+<td>收藏</td>
+<td>保存消息/卡片并加备注。</td>
+</tr>
+<tr>
+<td>事件</td>
+<td>查看事件，在设置中调整通知。</td>
+</tr>
+</tbody>
+</table>
+<p>会话可打开为小窗并保存/恢复布局，共享状态，断线保留草稿。其他角色的历史不改变当前发送角色。点击物品/地图链接查看卡片，对比依赖可用数据和装备。截图需插件允许，再从客户端请求并预览、保存、复制。</p>
+<h3>数据与升级</h3>
+<p>历史、收藏、备注、布局在本机，中继不提供云同步。配置在 <code>%APPDATA%\XIVChat for Windows</code>，数据在 <code>%LOCALAPPDATA%\XIVChatDesktop</code>，不要公开；受保护凭据绑定当前 Windows 用户。</p>
+<p>升级前正常退出并备份，新包解压到独立目录，不混用旧 DLL。通过 Dalamud 更新插件，并保留旧客户端包回退。</p>
+<p>实时发送、好友、截图需要游戏运行、角色在线、插件加载。本应用不保持角色在线，也不能在游戏关闭后发送。游戏/Dalamud 更新可能需要新版插件。</p><p><a href="index.html">← 返回介绍页</a></p></main><footer class="site-footer wrap"><span>XIVChat Next</span><a href="https://github.com/AinaSnow/XIVChatNext">GitHub</a></footer></body></html>

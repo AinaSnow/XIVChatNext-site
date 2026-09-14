@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your optional self-hosted relay · XIVChat Next</title><meta name="description" content="Your optional self-hosted relay — XIVChat Next"><link rel="icon" href="assets/logo.png"><link rel="stylesheet" href="style.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header wrap"><a class="brand" href="index.html"><img src="assets/logo.png" width="42" height="42" alt=""><span>XIVChat <b>Next</b></span></a><nav aria-label="Navigation"><a class="language-switch" href="zh/relay.html">中文</a><a class="nav-cta" href="index.html">Back to overview ↗</a></nav></header><main class="guide-body wrap" id="main"><p class="eyebrow">XIVCHAT NEXT · DESKTOP 1.3.6 / PLUGIN 1.7.15</p><h1>Your optional self-hosted relay</h1><p>The plugin and desktop both connect to your HTTPS server when the game PC is not directly reachable. The relay forwards application traffic; it does not proxy the game, keep a character logged in, or store offline chats/screenshots.</p>
+<h3>Deploy</h3>
+<p>Use the <a href="https://github.com/AinaSnow/XIVChatNext/blob/main/docs/user/RELAY_VPS_OFFLINE_IMAGE.md">Ubuntu + 1Panel offline image guide</a> for the release's prebuilt Linux amd64 image. For source builds and 1Panel HTTPS setup, see <a href="https://github.com/AinaSnow/XIVChatNext/blob/main/docs/user/RELAY_VPS_HTTPS.md">VPS HTTPS</a>.</p>
+<p>On a server without an existing reverse proxy, the repository's default <code>deploy/relay/compose.yaml</code> includes Caddy. In that directory, copy <code>.env.example</code> to <code>.env</code>, set a real <code>RELAY_DOMAIN</code> and independent <code>RELAY_ADMIN_PASSWORD</code> (at least 16 characters), then run <code>docker compose up -d --build</code>. Caddy needs inbound 80/443; do not publish game port 14777 or backend 8080. Do not combine this default configuration with the 1Panel-only configuration.</p>
+<p>Open <code>https://your-domain/admin/</code> and sign in with the administrator password. Use the HTTPS root address as the service URL, without a subpath, query, username or password. Plain HTTP is allowed only for local development on loopback.</p>
+<h3>Register the game and pair the desktop</h3>
+<ol>
+<li>In <strong>Game devices</strong>, add a named device and save the registration credential shown only once.</li>
+<li>Enter the service URL/credential in the plugin, save and enable Relay. Wait for the device to show online.</li>
+<li>Generate an invitation in the web admin or plugin. A new invitation invalidates the previous unused invitation.</li>
+<li>In the desktop, choose Self-hosted relay and paste the invitation. Compare the complete endpoint fingerprint with the plugin through an independent trusted channel, then save.</li>
+<li>Complete the existing chat-device trust confirmation on both ends.</li>
+</ol>
+<p>Registration, invitations and desktop credentials are separate from the admin password. Each desktop has its own credential. Credentials are protected for the current Windows user; moving PCs/users or losing configuration may require new pairing.</p>
+<p><strong>A normal restart does not require another invitation.</strong> The ten-minute invitation lifetime applies only to its first, one-time exchange. Saved credentials and trust remain valid until revoked. Configuration save failure, revoked/lost credentials or a replaced endpoint certificate can require re-pairing.</p>
+<p>After a successful session, the Logo can connect to the last successful target. Interrupted successful relay sessions retry with backoff; explicit Disconnect cancels retries.</p>
+<h3>Administration and operation</h3>
+<p>The English/Chinese web admin lists devices, clients and live sessions. Rename devices, create invitations, revoke a client or revoke a whole game device. Original credentials cannot be displayed again. Revocation normally closes affected sessions within the two-second checking interval; it cannot be undone.</p>
+<p>Admin sessions last at most eight hours and end on logout or server restart. Restarting the server does not erase device/client authorization. To change the password, update the deployment environment and recreate the relay container. With Compose, provide the original domain and chosen password again when recreating it.</p>
+<p>Defaults are intended for small private deployments: 64 online game hosts, 32 clients/sessions per host, 256 total sessions, and 4 MiB/s per session/direction with an 8 MiB burst. Large screenshots share their session with chat. Request/rate limits can apply per instance behind a shared proxy.</p>
+<h3>Backup, upgrade and troubleshooting</h3>
+<p>Retain the data volume and the existing image. Stop relay writes before copying SQLite; do not copy only a live main database while omitting its WAL. A sample Compose backup is:</p>
+<pre><code class="language-sh">mkdir -p backups
+docker compose stop relay
+docker compose cp relay:/data/relay.sqlite3 ./backups/relay.sqlite3
+docker compose start relay
+</code></pre>
+<p>Keep configuration/volumes for upgrades and restore a matching pre-upgrade data snapshot for rollback when schemas change. Never remove the volume as part of routine upgrades.</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wrong admin address</td>
+<td>Configured HTTPS domain and forwarded original Host</td>
+</tr>
+<tr>
+<td>Login failure / 429</td>
+<td>Password and login rate limit; wait a minute before retrying</td>
+</tr>
+<tr>
+<td>Plugin offline / 409</td>
+<td>HTTPS reachability, registration credential and endpoint certificate</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Lost, incorrect or revoked credential</td>
+</tr>
+<tr>
+<td>Invitation rejected</td>
+<td>Expired, used, replaced, incompatible or client limit reached</td>
+</tr>
+<tr>
+<td>Connected but cannot send</td>
+<td>Character login and trust confirmation on both ends</td>
+</tr>
+<tr>
+<td>Fingerprint mismatch</td>
+<td>Stop and independently compare with the plugin; do not bypass it</td>
+</tr>
+</tbody>
+</table>
+<p>The relay sees addresses, timing, device identifiers and traffic sizes. Application data uses an additional endpoint TLS session and the existing chat encryption; the relay does not hold endpoint private keys or persist application traffic.</p><p><a href="index.html">← Back to overview</a></p></main><footer class="site-footer wrap"><span>XIVChat Next</span><a href="https://github.com/AinaSnow/XIVChatNext">GitHub</a></footer></body></html>

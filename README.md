@@ -1,14 +1,21 @@
-# XIVChat Next 介绍页
+# XIVChat Next website / 介绍页
 
-纯静态站点，入口为 `dist/index.html`，部署指南为 `dist/guide.html`。
-本页不包含客户端、插件或中继镜像，不包含真实聊天记录、服务凭据或后台数据。
+## English
 
-## 1Panel 部署
+Static English/Chinese product website for [XIVChat Next](https://github.com/AinaSnow/XIVChatNext). English is the default at `dist/index.html`; Chinese starts at `dist/zh/index.html`. Client and optional relay guides are included in both languages.
 
-创建新的静态网站，将静态 ZIP 内容解压至网站根目录，使 `index.html` 直接位于根目录。
-该页面不需要服务器运行时或反向代理。为网站绑定所需域名与 HTTPS 证书即可。
-中继后台继续使用自己的域名与反代配置。
+GitHub Pages publishes only `dist/` through the Pages workflow. No server, database, account system or build step is required. Asset paths are relative and also work in a GitHub Pages project subdirectory.
 
-## 本地查看
+For 1Panel, create a static website and extract the website ZIP into its root so `index.html` is directly at the top level. Bind your domain and HTTPS certificate. The optional relay is a separate service.
 
-在 `dist` 目录启动任意静态 HTTP 服务，或直接打开 `index.html`。
+The demo uses fictional messages and the project's selected bird logo.
+
+## 简体中文
+
+[XIVChat Next](https://github.com/AinaSnow/XIVChatNext) 的纯静态中英文介绍页。默认英文入口 `dist/index.html`，中文入口 `dist/zh/index.html`，附带双语客户端和可选中继指南。
+
+GitHub Pages 通过工作流只发布 `dist/`，不需后端、数据库或构建步骤，相对资源路径兼容项目子目录。
+
+1Panel 新建静态网站，将网页 ZIP 解压到根目录，保证 `index.html` 直接位于顶层，再绑定域名和 HTTPS。可选中继是独立服务。
+
+页面演示使用虚构消息与项目已选定的小鸟 Logo。
