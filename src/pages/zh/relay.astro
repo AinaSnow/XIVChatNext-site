@@ -1,6 +1,6 @@
 ---
 import Article from '../../components/Article.astro';
-import body from '../../content/pages/relay.zh.html?raw';
+import docs from '../../data/docs.json';
 ---
 <Article lang="zh" page="relay.html" eyebrow="XIVCHAT NEXT · 可选功能" title="自建中继怎么用"
-  description="在自己的服务器上部署 HTTPS 中继，让 XIVChat Next 客户端在无法直连时连接游戏插件。" body={body} />
+  description="在自己的服务器上部署 HTTPS 中继，让 XIVChat Next 客户端在无法直连时连接游戏插件。" body={docs.relay.zh} />

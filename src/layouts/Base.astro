@@ -22,19 +22,31 @@ const canonical = new URL(url(lang, page), Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#36456f" />
+    <meta name="theme-color" content="#36456f" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14131a" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={new URL(url('en', page), Astro.site)} />
     <link rel="alternate" hreflang="zh-CN" href={new URL(url('zh', page), Astro.site)} />
     <link rel="alternate" hreflang="x-default" href={new URL(url('en', page), Astro.site)} />
-    <link rel="icon" href={asset('assets/logo.png')} />
+    <link rel="icon" type="image/png" href={asset('assets/favicon-64.png')} />
+    <link rel="apple-touch-icon" href={asset('assets/apple-touch-icon.png')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="XIVChat Next" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(asset('assets/og.png'), Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <a class="skip" href="#main">{t.skip}</a>
     <header class="site-header wrap">
-      <a class="brand" href={home}><img src={asset('assets/logo.png')} width="42" height="42" alt="" /><span>XIVChat <b>Next</b></span></a>
+      <a class="brand" href={home}><img src={asset('assets/logo-84.png')} width="42" height="42" alt="" /><span>XIVChat <b>Next</b></span></a>
       <nav aria-label={t.navLabel}>
         <a href={`${home}#features`}>{t.features}</a>
         <a href={url(lang, 'guide.html')}>{t.guide}</a>
@@ -47,7 +59,7 @@ const canonical = new URL(url(lang, page), Astro.site);
     <slot />
     <footer class="site-footer wrap">
       <span>XIVChat <b>Next</b> · {t.footerTagline}</span>
-      <span><a href={repo}>{t.footerProject}</a> · <a href={siteRepo}>{t.footerSource}</a></span>
+      <span><a href={url(lang, 'privacy.html')}>{t.privacy}</a> · <a href={repo}>{t.footerProject}</a> · <a href={siteRepo}>{t.footerSource}</a></span>
       <p>{t.footerLegal}</p>
     </footer>
   </body>

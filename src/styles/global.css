@@ -14,3 +14,21 @@
 .guide-body .lead{font-size:18px;max-width:720px}.download-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:34px 0 10px}.download-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-width:0}.download-card h2{margin:0!important;font-size:23px!important}.download-card .button{margin:4px 0}.download-card ol{margin:0;padding-left:20px;font-size:15px}.download-card dl{margin:0;font-size:13px;color:var(--muted);width:100%}.download-card dt{font-weight:600;color:var(--ink);margin-top:8px}.download-card dd{margin:2px 0 0}.checksum,.repository-url{display:block;user-select:all;overflow-wrap:anywhere;font-size:12px!important;line-height:1.6}.repository-url{padding:10px 12px!important;width:100%}.download-links{margin-top:40px}.guide-body .button.primary{color:#fff;text-decoration:none}.release-entry{border-top:1px solid var(--line);padding-top:8px;margin-top:36px}.release-entry h2{margin-bottom:4px!important}.release-meta{font-size:14px;margin-top:0}
 @media(max-width:800px){.download-grid{grid-template-columns:1fr}.download-card{padding:22px}}
 .guide-body.download-body{max-width:1040px}
+
+/* Dark mode follows the system setting. Light colours above stay the source of truth; these override only what changes. */
+@media (prefers-color-scheme: dark){
+:root{color-scheme:dark;--ink:#e7e5f0;--muted:#a6aabb;--purple:#b6a7ea;--navy:#4b5f96;--lavender:#29243d;--paper:#14131a;--line:#2f2c3b;--gold:#8c6f2c}
+.feature-card,.download-card,.repository-box,.nav-cta,.showcase,.connection-card,.window-top{background:#1c1a25}
+.showcase{border-color:#3a3450;box-shadow:0 26px 70px -36px #00000099,0 0 0 12px #ffffff08}
+.screenshot-card{background:#221e31}.connection-section{background:#18161f}
+.guide-callout,.feature-note{background:#272113;border-color:#5a4a24}.guide-callout p,.feature-note div>span{color:#c9b37f}.note-icon{background:#4a3d1c}
+code,.guide-body pre{background:#262334}
+.window-search,.mini-tags span,.route>span{background:#262334}.mini-tags span{color:#b9aecf}.route .relay-node{background:#4a3d1c}
+.demo-rail,.window-footer{background:#191721}.demo-rail .active{background:#30294f}.peer.selected{background:#29243d}
+.location-card{background:#221e31;border-color:#3a3450}.chat-heading{border-color:#2a2737}.chat-compose{border-color:#2a2737}
+.primary{box-shadow:0 4px 0 #0c1120}.primary:hover{box-shadow:0 6px 0 #0c1120}
+.capture-stamp{border-color:#4a4266;color:#b6a7ea}.closing p{color:#b6a7ea}
+.avatar{color:#3d3150}
+}
+.real-app{padding:10px 0 20px}.app-shot{margin:0}.app-shot img{display:block;width:100%;height:auto;border:1px solid #d4cde3;border-radius:14px;box-shadow:0 26px 70px -40px #4a3d7966}.app-shot figcaption{font-size:13px;color:var(--muted);margin-top:14px;text-align:center}
+@media (prefers-color-scheme: dark){.app-shot img{border-color:#3a3450;box-shadow:0 26px 70px -40px #00000099}}

@@ -15,6 +15,7 @@ export const ui = {
     footerTagline: 'WINDOWS CLIENT · DALAMUD PLUGIN',
     footerProject: 'Project & releases',
     footerSource: 'Website source',
+    privacy: 'Privacy & security',
     footerLegal: 'FINAL FANTASY XIV is a trademark of Square Enix. Independent community project. Demo messages are fictional.',
   },
   zh: {
@@ -31,6 +32,7 @@ export const ui = {
     footerTagline: 'Windows 客户端 · Dalamud 插件',
     footerProject: '项目与发布',
     footerSource: '网站源码',
+    privacy: '隐私与安全',
     footerLegal: 'FINAL FANTASY XIV 是 Square Enix 的商标。本项目与 Square Enix 无关联，示意消息均为虚构。',
   },
 } satisfies Record<Lang, Record<string, string>>;

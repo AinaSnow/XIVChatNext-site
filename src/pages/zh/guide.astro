@@ -1,6 +1,6 @@
 ---
 import Article from '../../components/Article.astro';
-import body from '../../content/pages/guide.zh.html?raw';
+import docs from '../../data/docs.json';
 ---
 <Article lang="zh" page="guide.html" eyebrow="XIVCHAT NEXT · WINDOWS 客户端" title="安装和使用"
-  description="安装、连接和使用 XIVChat Next Windows 客户端：会话、聊天记录、截图、小窗、托盘和主播模式。" body={body} />
+  description="安装、连接和使用 XIVChat Next Windows 客户端：会话、聊天记录、截图、小窗、托盘和主播模式。" body={docs.guide.zh} />
