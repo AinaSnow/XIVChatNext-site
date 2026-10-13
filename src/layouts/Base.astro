@@ -39,8 +39,9 @@ const canonical = new URL(url(lang, page), Astro.site);
         <a href={`${home}#features`}>{t.features}</a>
         <a href={url(lang, 'guide.html')}>{t.guide}</a>
         <a href={url(lang, 'relay.html')}>{t.relay}</a>
+        <a href={url(lang, 'changelog.html')}>{t.changelog}</a>
         <a href={url(other, page)} class="language-switch" lang={t.otherLang}>{t.otherLanguage}</a>
-        <a class="nav-cta" href={`${repo}/releases/latest`}>{t.download}</a>
+        <a class="nav-cta" href={url(lang, 'download.html')}>{t.download}</a>
       </nav>
     </header>
     <slot />

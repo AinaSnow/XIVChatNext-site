@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { downloadPage } from '../i18n/pages';
+import { downloads, fill, megabytes, pluginRepository, releasePage, url, type Lang } from '../lib/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = downloadPage[lang];
+const { desktop, plugin } = downloads;
+---
+<Base lang={lang} page="download.html" title={`${t.title} · XIVChat Next`} description={t.description}>
+  <main class="guide-body download-body wrap" id="main">
+    <p class="eyebrow">{t.eyebrow}</p>
+    <h1>{t.title}</h1>
+    <p class="lead">{t.intro}</p>
+    <div class="download-grid">
+      <article class="download-card">
+        <span class="mode-label">{t.desktopLabel}</span>
+        <h2>{fill(t.desktopTitle)}</h2>
+        <a class="button primary" href={desktop.url}>{t.desktopButton} <span aria-hidden="true">↓</span></a>
+        <ol>{t.desktopSteps.map((step) => <li set:html={step} />)}</ol>
+        <dl>
+          <dt>{t.size}</dt><dd>{megabytes(desktop.size)} · <code>{desktop.asset}</code></dd>
+          {desktop.sha256 && <><dt>{t.checksum}</dt><dd><code class="checksum">{desktop.sha256}</code></dd></>}
+        </dl>
+      </article>
+      <article class="download-card">
+        <span class="mode-label">{t.pluginLabel}</span>
+        <h2>{fill(t.pluginTitle)}</h2>
+        <code class="repository-url">{pluginRepository}</code>
+        <ol>{t.pluginSteps.map((step) => <li set:html={step} />)}</ol>
+        <dl>
+          <dt>{t.pluginManual}</dt><dd><a href={plugin.url}>latest.zip</a> · {megabytes(plugin.size)}</dd>
+          {plugin.sha256 && <><dt>{t.checksum}</dt><dd><code class="checksum">{plugin.sha256}</code></dd></>}
+        </dl>
+      </article>
+    </div>
+    <h2>{t.upgradeTitle}</h2>
+    <ul>{t.upgrade.map((item) => <li set:html={item} />)}</ul>
+    <h2>{t.relayTitle}</h2>
+    <p>{t.relayText} <a href={url(lang, 'relay.html')}>{t.relayLink}</a></p>
+    <p class="download-links"><a href={releasePage}>{t.notesLink}</a> · <a href={url(lang, 'changelog.html')}>{t.changelogLink}</a></p>
+  </main>
+</Base>

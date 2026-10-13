@@ -1,0 +1,93 @@
+import type { Lang } from '../lib/site';
+
+export const downloadPage = {
+  en: {
+    title: 'Download',
+    description: 'Download the XIVChat Next Windows client and install the Dalamud plugin. Current versions, checksums and upgrade notes.',
+    eyebrow: 'XIVCHAT NEXT · DOWNLOAD',
+    intro: 'You need both parts: the Windows client on the computer you chat from, and the Dalamud plugin in the game. Use matching versions from the same release.',
+    desktopLabel: 'WINDOWS CLIENT',
+    desktopTitle: 'XIVChat Next Desktop {desktop}',
+    desktopButton: 'Download ZIP',
+    desktopSteps: [
+      'Extract the ZIP into a new folder. Keep every file together; do not copy only the EXE.',
+      'Run <code>XIVChat Desktop.exe</code>. The first-run guide sets language, connection and notifications.',
+      'Windows 10 or 11, x64. .NET is included. Item and map cards use Microsoft Edge WebView2 Runtime.',
+    ],
+    pluginLabel: 'DALAMUD PLUGIN',
+    pluginTitle: 'XIVChatNext Server {plugin}',
+    pluginSteps: [
+      'In Dalamud settings → Experimental → Custom plugin repositories, add the address below and save.',
+      'Install <strong>XIVChatNext Server</strong> from the plugin installer, log in to a character and enable the connection.',
+      'Dalamud updates the plugin automatically afterwards.',
+    ],
+    pluginManual: 'Manual package for developer loading',
+    size: 'Size',
+    checksum: 'SHA-256',
+    relayTitle: 'Optional self-hosted relay',
+    relayText: 'Only needed when the client cannot reach the game PC directly. The relay is not updated in every release.',
+    relayLink: 'Read the relay guide ↗',
+    upgradeTitle: 'Upgrading',
+    upgrade: [
+      'Close the client normally and back up <code>%APPDATA%\\XIVChat for Windows</code> and <code>%LOCALAPPDATA%\\XIVChatDesktop</code>.',
+      'Extract the new version into a separate folder; never mix DLLs from different versions.',
+      'Clients from 1.4.1 onwards check for updates themselves and open the download in your browser. They never replace themselves automatically.',
+    ],
+    notesLink: 'Release notes and all files on GitHub ↗',
+    changelogLink: 'Changelog',
+  },
+  zh: {
+    title: '下载',
+    description: '下载 XIVChat Next Windows 客户端并安装 Dalamud 插件，查看当前版本、校验值与升级说明。',
+    eyebrow: 'XIVCHAT NEXT · 下载',
+    intro: '需要两部分：在用来聊天的电脑上安装 Windows 客户端，在游戏里安装 Dalamud 插件。请使用同一次发布的配套版本。',
+    desktopLabel: 'WINDOWS 客户端',
+    desktopTitle: 'XIVChat Next 客户端 {desktop}',
+    desktopButton: '下载压缩包',
+    desktopSteps: [
+      '把压缩包解压到一个新文件夹，所有文件放在一起，不要只拿出 EXE。',
+      '运行 <code>XIVChat Desktop.exe</code>，按首次启动提示设置语言、连接和通知。',
+      '需要 Windows 10 或 11（x64），已自带 .NET。物品和地图卡片需要 Microsoft Edge WebView2 Runtime。',
+    ],
+    pluginLabel: 'DALAMUD 插件',
+    pluginTitle: 'XIVChatNext Server {plugin}',
+    pluginSteps: [
+      '在 Dalamud 设置 → 实验性功能 → 自定义插件仓库中添加下面的地址并保存。',
+      '在插件安装器中安装 <strong>XIVChatNext Server</strong>，登录角色后在插件里启用连接。',
+      '之后由 Dalamud 自动更新插件。',
+    ],
+    pluginManual: '开发加载用的手动安装包',
+    size: '大小',
+    checksum: 'SHA-256',
+    relayTitle: '可选：自建中继',
+    relayText: '只有客户端无法直接连接游戏电脑时才需要。中继不会每次发布都更新。',
+    relayLink: '查看中继说明 ↗',
+    upgradeTitle: '升级',
+    upgrade: [
+      '先正常退出客户端，备份 <code>%APPDATA%\\XIVChat for Windows</code> 和 <code>%LOCALAPPDATA%\\XIVChatDesktop</code>。',
+      '把新版解压到单独的文件夹，不要混用不同版本的 DLL。',
+      '1.4.1 及以后的客户端会自己检查更新，并在浏览器中打开下载，但不会自动替换自己。',
+    ],
+    notesLink: '在 GitHub 查看更新说明和全部文件 ↗',
+    changelogLink: '更新日志',
+  },
+} satisfies Record<Lang, unknown>;
+
+export const changelogPage = {
+  en: {
+    title: 'Changelog',
+    description: 'What changed in each XIVChat Next desktop and plugin release.',
+    eyebrow: 'XIVCHAT NEXT · RELEASES',
+    intro: 'Release notes for XIVChat Next, newest first. Each entry links to its GitHub release with downloads and checksums.',
+    open: 'Release page ↗',
+    older: 'Older releases from the original XIVChat project are listed on GitHub ↗',
+  },
+  zh: {
+    title: '更新日志',
+    description: 'XIVChat Next 客户端和插件每次发布的更新内容。',
+    eyebrow: 'XIVCHAT NEXT · 版本记录',
+    intro: 'XIVChat Next 的更新说明，最新的在最前面。每一条都链接到对应的 GitHub 发布页，可以在那里下载并查看校验值。',
+    open: '发布页 ↗',
+    older: '原 XIVChat 项目更早的版本见 GitHub ↗',
+  },
+} satisfies Record<Lang, unknown>;

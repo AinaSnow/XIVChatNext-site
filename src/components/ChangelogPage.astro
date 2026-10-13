@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import releases from '../data/releases.json';
+import { changelogPage } from '../i18n/pages';
+import { repo, type Lang } from '../lib/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = changelogPage[lang];
+---
+<Base lang={lang} page="changelog.html" title={`${t.title} · XIVChat Next`} description={t.description}>
+  <main class="guide-body changelog-body wrap" id="main">
+    <p class="eyebrow">{t.eyebrow}</p>
+    <h1>{t.title}</h1>
+    <p class="lead">{t.intro}</p>
+    {releases.map((release) => (
+      <section class="release-entry" id={release.tag}>
+        <h2>{release.name}</h2>
+        <p class="release-meta"><time datetime={release.date}>{release.date}</time> · <a href={release.page}>{t.open}</a></p>
+        <Fragment set:html={release[lang]} />
+      </section>
+    ))}
+    <p class="download-links"><a href={`${repo}/releases`}>{t.older}</a></p>
+  </main>
+</Base>

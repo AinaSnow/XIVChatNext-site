@@ -3,6 +3,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Pick up new XIVChat Next releases without a site commit.
+  schedule:
+    - cron: '17 3 * * *'
 permissions:
   contents: read
   pages: write
@@ -23,6 +26,10 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Refresh release data
+        run: npm run sync
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

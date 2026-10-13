@@ -1,4 +1,4 @@
-import release from '../data/release.json';
+import data from '../data/release.json';
 
 export type Lang = 'en' | 'zh';
 
@@ -6,10 +6,16 @@ export const repo = 'https://github.com/AinaSnow/XIVChatNext';
 export const siteRepo = 'https://github.com/AinaSnow/XIVChatNext-site';
 export const pluginRepository = 'https://raw.githubusercontent.com/AinaSnow/FFXIV-Dalamud-Plugins/main/pluginmaster.json';
 
-export { release };
-export const releasePage = `${repo}/releases/tag/${release.tag}`;
-export const desktopDownload = `${repo}/releases/download/${release.tag}/${release.desktopAsset}`;
-export const pluginDownload = `${repo}/releases/download/${release.tag}/latest.zip`;
+/** Latest stable desktop ZIP and plugin package, refreshed by `npm run sync`. */
+export const downloads = data;
+export const release = { tag: data.desktop.tag, desktop: data.desktop.version, plugin: data.plugin.version };
+export const releasePage = `${repo}/releases/tag/${data.desktop.tag}`;
+export const desktopDownload = data.desktop.url;
+export const pluginDownload = data.plugin.url;
+
+export function megabytes(bytes: number): string {
+  return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+}
 
 /** Site-relative URL for a page, e.g. url('zh', 'guide.html'). */
 export function url(lang: Lang, page = 'index.html'): string {
