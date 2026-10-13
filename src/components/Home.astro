@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import { home } from '../i18n/home';
+import { asset, desktopDownload, fill, pluginRepository, release, url, type Lang } from '../lib/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = home[lang];
+const logo = asset('assets/logo.png');
+const lead = t.peers[0];
+---
+<Base lang={lang} page="index.html" title={t.title} description={t.description}>
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span>{t.eyebrow}</span><span class="preview-label">{t.eyebrowLabel}</span></p>
+        <h1 set:html={t.heading} />
+        <p class="intro">{t.intro}</p>
+        <div class="hero-actions">
+          <a class="button primary" href={desktopDownload}>{t.downloadButton} <span class="button-version">v{release.desktop}</span> <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href={url(lang, 'guide.html')}>{t.guideLink}</a>
+        </div>
+        <p class="download-hint" set:html={fill(t.downloadHint)} />
+        <p class="compatibility" set:html={t.compatibility} />
+      </div>
+      <div class="showcase" aria-label={t.showcaseLabel}>
+        <div class="window-top">
+          <div class="window-brand"><img src={logo} width="25" height="25" alt="" /><b>XIVChat Next</b></div>
+          <span class="window-search">⌕ &nbsp; {t.searchPlaceholder}</span>
+          <span class="window-controls" aria-hidden="true">— &nbsp; □ &nbsp; ×</span>
+        </div>
+        <div class="demo-shell">
+          <aside class="demo-rail" aria-hidden="true">
+            {['☰', '▦', '♧', '☆', '◷'].map((icon, i) => <span class={i === 0 ? 'active' : undefined}>{icon}<small>{t.rail[i]}</small></span>)}
+          </aside>
+          <aside class="demo-sidebar">
+            <div class="sidebar-heading"><b>{t.sidebarTitle}</b><span>＋</span></div>
+            <div class="tiny-search">{t.sidebarSearch}</div>
+            {t.peers.map((peer, i) => (
+              <div class:list={['peer', { selected: i === 0 }]}>
+                <span class={`avatar ${peer.colour}`}>{peer.initial}</span>
+                <span><b>{peer.name}</b><small>{peer.preview}</small></span>
+                {i === 0 && <time>20:42</time>}
+              </div>
+            ))}
+            <div class="sidebar-bottom">{t.sidebarBottom}</div>
+          </aside>
+          <section class="demo-chat">
+            <div class="chat-heading"><div><b>{lead.name}</b><small>{t.chatSubtitle}</small></div><span aria-hidden="true">↗ &nbsp; ⋯</span></div>
+            <div class="chat-body">
+              <span class="date-divider">{t.dateDivider}</span>
+              <div class="chat-message"><span class={`avatar ${lead.colour}`}>{lead.initial}</span><div><b>{lead.name}</b><p>{lead.preview}</p></div></div>
+              <div class="chat-message"><span class="avatar lavender">{t.youInitial}</span><div><b>{t.you}</b><p>{t.reply}</p></div></div>
+              <div class="location-card">
+                <span class="location-icon" aria-hidden="true">⌖</span>
+                <div><small>{t.mapLabel}</small><b>{t.mapPlace}</b><span>{t.mapHint}</span></div>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </div>
+            <div class="chat-compose"><span>{t.composeTarget}</span><div>{t.composePlaceholder}<span aria-hidden="true">↗</span></div></div>
+          </section>
+        </div>
+        <div class="window-footer"><span>{t.footerLeft}</span><span>{t.footerRight}</span></div>
+        <div class="feature-note"><span class="note-icon" aria-hidden="true">↗</span><div><b>{t.noteTitle}</b><span>{t.noteText}</span></div></div>
+      </div>
+    </section>
+
+    <section class="feature-intro wrap" id="features">
+      <p class="eyebrow">{t.featuresEyebrow}</p>
+      <h2 set:html={t.featuresHeading} />
+      <p>{t.featuresIntro}</p>
+      <p set:html={fill(t.whatsNew)} />
+    </section>
+    <div class="feature-grid wrap">
+      {t.cards.map((card) => (
+        <article class="feature-card">
+          <span class="card-symbol">{card.symbol}</span>
+          <h3>{card.title}</h3>
+          <p>{card.text}</p>
+          <div class="mini-tags">{card.tags.map((tag) => <span>{tag}</span>)}</div>
+        </article>
+      ))}
+      <article class="feature-card screenshot-card">
+        <div>
+          <span class="card-symbol">{t.screenshot.symbol}</span>
+          <h3>{t.screenshot.title}</h3>
+          <p>{t.screenshot.text}</p>
+          <p class="fine-print">{t.screenshot.fine}</p>
+        </div>
+        <div class="capture-stamp" aria-hidden="true"><span>⌗</span><b set:html={t.screenshot.stamp} /><small>{t.screenshot.steps}</small></div>
+      </article>
+    </div>
+
+    <section class="getting-started wrap" id="start">
+      <p class="eyebrow">{t.startEyebrow}</p>
+      <div class="section-heading"><h2 set:html={t.startHeading} /><p>{t.startIntro}</p></div>
+      <ol class="steps">
+        {t.steps.map((step, i) => (
+          <li><span class="step-number">{String(i + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.text}</p></li>
+        ))}
+      </ol>
+      <div class="repository-box">
+        <h3>{t.repositoryTitle}</h3>
+        <p>{t.repositoryText}</p>
+        <a href={pluginRepository}><code>{pluginRepository}</code></a>
+      </div>
+      <div class="guide-callout">
+        <div><h3>{t.calloutTitle}</h3><p>{t.calloutText}</p></div>
+        <a class="button primary" href={url(lang, 'guide.html')}>{t.calloutButton}</a>
+      </div>
+    </section>
+
+    <section class="connection-section" id="connect">
+      <div class="wrap">
+        <p class="eyebrow">{t.connectEyebrow}</p>
+        <div class="section-heading"><h2>{t.connectHeading}</h2><p>{t.connectIntro}</p></div>
+        <div class="connection-grid">
+          {[t.direct, t.relayCard].map((card, i) => (
+            <article class:list={['connection-card', { 'relay-card': i === 1 }]}>
+              <span class="mode-label">{card.label}</span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <div class="route">
+                {card.route.map((stop, j) => (
+                  <>
+                    {j > 0 && <i>↔</i>}
+                    <span class={i === 1 && j === 1 ? 'relay-node' : undefined}>{stop}</span>
+                  </>
+                ))}
+              </div>
+              <ul>{card.points.map((point) => <li set:html={point} />)}</ul>
+            </article>
+          ))}
+        </div>
+        <p class="connection-note">{t.connectNote}</p>
+        <p class="connection-note"><a href={url(lang, 'relay.html')}>{t.relayLink}</a></p>
+      </div>
+    </section>
+
+    <section class="faq wrap">
+      <div><p class="eyebrow">{t.faqEyebrow}</p><h2 set:html={t.faqHeading} /></div>
+      <div class="faq-list">
+        {t.faq.map((item) => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}
+      </div>
+    </section>
+    <section class="closing wrap">
+      <img src={logo} alt="" width="74" height="74" />
+      <div><p>{t.closingLead}</p><h2>{t.closingHeading}</h2></div>
+      <a class="text-link" href="#start">{t.closingLink}</a>
+    </section>
+  </main>
+</Base>

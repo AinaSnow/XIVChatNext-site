@@ -2,3 +2,8 @@
 .env.*
 !.env.example
 .openai/local*
+
+# Astro
+node_modules/
+dist/
+.astro/

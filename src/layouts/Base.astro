@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import { ui } from '../i18n/ui';
+import { asset, repo, siteRepo, url, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  /** Page file name shared by both languages, e.g. 'guide.html'. */
+  page: string;
+  title: string;
+  description: string;
+}
+
+const { lang, page, title, description } = Astro.props;
+const t = ui[lang];
+const other: Lang = lang === 'en' ? 'zh' : 'en';
+const home = url(lang);
+const canonical = new URL(url(lang, page), Astro.site);
+---
+<!doctype html>
+<html lang={t.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#36456f" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(url('en', page), Astro.site)} />
+    <link rel="alternate" hreflang="zh-CN" href={new URL(url('zh', page), Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(url('en', page), Astro.site)} />
+    <link rel="icon" href={asset('assets/logo.png')} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+    <header class="site-header wrap">
+      <a class="brand" href={home}><img src={asset('assets/logo.png')} width="42" height="42" alt="" /><span>XIVChat <b>Next</b></span></a>
+      <nav aria-label={t.navLabel}>
+        <a href={`${home}#features`}>{t.features}</a>
+        <a href={url(lang, 'guide.html')}>{t.guide}</a>
+        <a href={url(lang, 'relay.html')}>{t.relay}</a>
+        <a href={url(other, page)} class="language-switch" lang={t.otherLang}>{t.otherLanguage}</a>
+        <a class="nav-cta" href={`${repo}/releases/latest`}>{t.download}</a>
+      </nav>
+    </header>
+    <slot />
+    <footer class="site-footer wrap">
+      <span>XIVChat <b>Next</b> · {t.footerTagline}</span>
+      <span><a href={repo}>{t.footerProject}</a> · <a href={siteRepo}>{t.footerSource}</a></span>
+      <p>{t.footerLegal}</p>
+    </footer>
+  </body>
+</html>

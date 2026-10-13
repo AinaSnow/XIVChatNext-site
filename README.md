@@ -1,38 +1,33 @@
 # XIVChat Next website
 
-Product site for [XIVChat Next](https://github.com/AinaSnow/XIVChatNext), published at <https://ainasnow.github.io/XIVChatNext-site/>.
+Product site for [XIVChat Next](https://github.com/AinaSnow/XIVChatNext), published at <https://ainasnow.github.io/XIVChatNext-site/>. Built with [Astro](https://astro.build/) as a static site with no client-side JavaScript.
+
+## Develop
+
+Requires Node.js 22.12 or newer.
+
+```powershell
+npm ci
+npm run dev      # http://localhost:4321/XIVChatNext-site/
+npm run build    # writes dist/
+npm run preview  # serves dist/
+```
 
 ## Layout
 
-The site is hand-written static HTML with no build step. Everything published lives in `dist/`:
-
-| Path | Page |
+| Path | Purpose |
 | --- | --- |
-| `dist/index.html`, `dist/zh/index.html` | Home (English / Simplified Chinese) |
-| `dist/guide.html`, `dist/zh/guide.html` | Client guide |
-| `dist/relay.html`, `dist/zh/relay.html` | Self-hosted relay guide |
-| `dist/style.css` | Shared stylesheet |
-| `dist/assets/` | Logo and images |
+| `src/pages/` | One file per published page. English at the root, Simplified Chinese under `zh/`. URLs match the earlier hand-written site (`guide.html`, `zh/index.html`). |
+| `src/layouts/Base.astro` | Shared head, header, language switch, `hreflang` links and footer. |
+| `src/components/Home.astro` | Home page markup for both languages. |
+| `src/i18n/` | Interface strings (`ui.ts`) and home page copy (`home.ts`) for each language. |
+| `src/content/pages/` | Guide and relay page bodies. |
+| `src/data/release.json` | Current release tag, desktop and plugin versions, and desktop asset name. |
+| `src/styles/global.css` | Site stylesheet. |
+| `public/` | Files copied as-is, such as the logo. |
 
-English and Chinese pages are separate files and must be edited together.
+Copy can use `{desktop}`, `{plugin}`, `{tag}` and `{releasePage}`; they are filled from `src/data/release.json`, so a release only needs that file and the "what's new" sentence in `home.ts` updated.
 
 ## Publishing
 
-Pushing to `main` runs `.github/workflows/pages.yml`, which uploads `dist/` to GitHub Pages. To preview locally, open `dist/index.html` in a browser or serve the folder:
-
-```powershell
-python -m http.server 8000 --directory dist
-```
-
-## Release checklist
-
-Version numbers are written into the page text. When a desktop or plugin release ships, update every occurrence in both languages:
-
-- `index.html` and `zh/index.html`: release summary under the feature introduction.
-- `guide.html` and `zh/guide.html`: release sections and upgrade notes.
-
-Download buttons link to the GitHub Releases page, so they do not need updating.
-
-## Planned
-
-The site is being rebuilt with Astro so that both languages share templates, guides are generated from the product repository's `docs/user/`, and version numbers come from GitHub Releases at build time.
+Pushing to `main` runs `.github/workflows/pages.yml`, which builds the site and deploys `dist/` to GitHub Pages. `dist/` is generated and not committed.

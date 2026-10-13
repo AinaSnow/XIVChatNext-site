@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  page: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  body: string;
+}
+const { lang, page, eyebrow, title, description, body } = Astro.props;
+---
+<Base lang={lang} page={page} title={`${title} · XIVChat Next`} description={description}>
+  <main class="guide-body wrap" id="main">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <Fragment set:html={body} />
+  </main>
+</Base>
