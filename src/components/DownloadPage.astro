@@ -7,6 +7,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = downloadPage[lang];
 const { desktop, plugin } = downloads;
+const installer = desktop.installer;
 ---
 <Base lang={lang} page="download.html" title={`${t.title} · XIVChat Next`} description={t.description}>
   <main class="guide-body download-body wrap" id="main">
@@ -17,10 +18,18 @@ const { desktop, plugin } = downloads;
       <article class="download-card">
         <span class="mode-label">{t.desktopLabel}</span>
         <h2>{fill(t.desktopTitle)}</h2>
-        <a class="button primary" href={desktop.url}>{t.desktopButton} <span aria-hidden="true">↓</span></a>
-        <ol>{t.desktopSteps.map((step) => <li set:html={step} />)}</ol>
+        {installer ? <>
+          <a class="button primary" href={installer.url}>{t.installerButton} <span aria-hidden="true">↓</span></a>
+          <ol>{t.installerSteps.map((step) => <li set:html={step} />)}</ol>
+          <p>{t.portableIntro} <a href={desktop.url}>{t.portableLink}</a></p>
+        </> : <>
+          <a class="button primary" href={desktop.url}>{t.desktopButton} <span aria-hidden="true">↓</span></a>
+          <ol>{t.desktopSteps.map((step) => <li set:html={step} />)}</ol>
+        </>}
         <dl>
-          <dt>{t.size}</dt><dd>{megabytes(desktop.size)} · <code>{desktop.asset}</code></dd>
+          {installer && <><dt>{t.installerSize}</dt><dd>{megabytes(installer.size)} · <code>{installer.asset}</code></dd>
+            {installer.sha256 && <><dt>{t.checksum}</dt><dd><code class="checksum">{installer.sha256}</code></dd></>}</>}
+          <dt>{installer ? t.portableSize : t.size}</dt><dd>{megabytes(desktop.size)} · <code>{desktop.asset}</code></dd>
           {desktop.sha256 && <><dt>{t.checksum}</dt><dd><code class="checksum">{desktop.sha256}</code></dd></>}
         </dl>
       </article>

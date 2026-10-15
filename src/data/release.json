@@ -1,17 +1,23 @@
 {
   "desktop": {
-    "version": "1.5.0",
-    "tag": "1.7.17",
-    "asset": "XIVChatNext-Desktop-v1.5.0-win-x64.zip",
-    "url": "https://github.com/AinaSnow/XIVChatNext/releases/download/1.7.17/XIVChatNext-Desktop-v1.5.0-win-x64.zip",
-    "sha256": "38c958c36d52edb9d3ab6344eb288bca300a5d7702016172149aa79f167d13cb",
-    "size": 74587503
+    "version": "1.6.0",
+    "tag": "1.8.0",
+    "asset": "XIVChatNext-Desktop-v1.6.0-win-x64.zip",
+    "url": "https://github.com/AinaSnow/XIVChatNext/releases/download/1.8.0/XIVChatNext-Desktop-v1.6.0-win-x64.zip",
+    "sha256": "7bc2a27d0068cc8a62268a969bc07a1f84d84d8f03d625d68e9e5629a668cb33",
+    "size": 76545183,
+    "installer": {
+      "asset": "XIVChatNext-win-Setup.exe",
+      "url": "https://github.com/AinaSnow/XIVChatNext/releases/download/1.8.0/XIVChatNext-win-Setup.exe",
+      "sha256": "2a011b6dcd09fef3ab69a4687ffe9ea4c15dcb28a287fdb8baf71e9609603b21",
+      "size": 86511848
+    }
   },
   "plugin": {
-    "version": "1.7.17",
-    "tag": "1.7.17",
-    "url": "https://github.com/AinaSnow/XIVChatNext/releases/download/1.7.17/latest.zip",
-    "sha256": "262ccd458a9c69311fd2ec588b6375dc175ebb0cec79f718b920be4fdf8a3ab5",
-    "size": 975797
+    "version": "1.8.0",
+    "tag": "1.8.0",
+    "url": "https://github.com/AinaSnow/XIVChatNext/releases/download/1.8.0/latest.zip",
+    "sha256": "515bc429c07b92f8b350dbcfa3a141ab18234448f98d5c9bd9a30a970e40138f",
+    "size": 987726
   }
 }

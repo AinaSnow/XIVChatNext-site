@@ -5,6 +5,8 @@ import { marked } from 'marked';
 
 const repo = 'AinaSnow/XIVChatNext';
 const desktopAsset = /^XIVChatNext-Desktop-v(\d+\.\d+\.\d+)-win-x64\.zip$/;
+// Desktop 1.6.0 and later also ship a self-updating installer in the same release.
+const installerAsset = 'XIVChatNext-win-Setup.exe';
 const out = new URL('../src/data/', import.meta.url);
 
 async function fetchReleases() {
@@ -39,8 +41,11 @@ try {
   for (const release of releases) {
     for (const asset of release.assets) {
       const match = asset.name.match(desktopAsset);
-      if (match && (!desktop || compare(match[1], desktop.version) > 0))
-        desktop = { version: match[1], tag: release.tag_name, asset: asset.name, url: asset.browser_download_url, sha256: digest(asset), size: asset.size };
+      if (match && (!desktop || compare(match[1], desktop.version) > 0)) {
+        const setup = release.assets.find((a) => a.name === installerAsset);
+        desktop = { version: match[1], tag: release.tag_name, asset: asset.name, url: asset.browser_download_url, sha256: digest(asset), size: asset.size,
+          installer: setup ? { asset: setup.name, url: setup.browser_download_url, sha256: digest(setup), size: setup.size } : null };
+      }
       const version = pluginVersion(release.tag_name);
       if (asset.name === 'latest.zip' && version && (!plugin || compare(version, plugin.version) > 0))
         plugin = { version, tag: release.tag_name, url: asset.browser_download_url, sha256: digest(asset), size: asset.size };

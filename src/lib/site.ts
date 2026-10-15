@@ -10,7 +10,8 @@ export const pluginRepository = 'https://raw.githubusercontent.com/AinaSnow/FFXI
 export const downloads = data;
 export const release = { tag: data.desktop.tag, desktop: data.desktop.version, plugin: data.plugin.version };
 export const releasePage = `${repo}/releases/tag/${data.desktop.tag}`;
-export const desktopDownload = data.desktop.url;
+/** The installer when the release has one, otherwise the portable ZIP. */
+export const desktopDownload = data.desktop.installer?.url ?? data.desktop.url;
 export const pluginDownload = data.plugin.url;
 
 export function megabytes(bytes: number): string {
